@@ -1,0 +1,6 @@
+node_modules
+*.lock
+.nvmrc
+*.d.ts
+.dockerignore
+*.json
