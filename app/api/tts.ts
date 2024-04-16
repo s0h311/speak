@@ -24,8 +24,6 @@ export default async function tts(text: string): Promise<string> {
   try {
     const res: StartSpeechSynthesisTaskCommandOutput = await polly.send(new StartSpeechSynthesisTaskCommand(params))
 
-    console.log(res.SynthesisTask?.OutputUri)
-
     return res.SynthesisTask?.OutputUri ?? 'Error :D'
   } catch (e) {
     logger.error((e as Error).message, 'TTS API')
