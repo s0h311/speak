@@ -14,6 +14,6 @@ COPY . .
 
 RUN npx next build
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["npx", "next", "start"]
