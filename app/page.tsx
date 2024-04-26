@@ -12,6 +12,7 @@ export default function Home() {
 
     setOutputUri(result)
   }
+
   return (
     <section className='grid place-items-center gap-10'>
       <h1>Speak</h1>
@@ -29,7 +30,10 @@ export default function Home() {
         Get Audio
       </button>
 
-      {outputUri && (
+      {
+        // TODO CORS konfigurieren EC2
+      }
+      {outputUri && false && (
         <audio
           controls
           src={outputUri}
