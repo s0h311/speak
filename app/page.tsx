@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import tts from './api/tts'
+import add from './api/add'
 
 export default function Home() {
   const [text, setText] = useState<string>('')
   const [outputUri, setOutputUri] = useState<string>('')
 
   async function handleSubmit(): Promise<void> {
-    const result = await tts(text)
+    const result = await add(text)
 
     setOutputUri(result)
   }
