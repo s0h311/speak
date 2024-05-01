@@ -4,6 +4,10 @@ import list from '../api/list'
 export default async function List() {
   const audioUrls = await list()
 
+  if (audioUrls.length === 0) {
+    return <p>No Audios found</p>
+  }
+
   return (
     <table className='table w-fit'>
       <thead>

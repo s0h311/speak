@@ -17,7 +17,7 @@ export default class S3Service {
     const { Contents } = await this.s3.send(command)
 
     if (!Contents) {
-      logger.error('cannot get storge objects')
+      logger.error('cannot get storge objects', 'S3Service')
       return []
     }
 
