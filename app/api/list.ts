@@ -1,11 +1,18 @@
 'use server'
 
+import logger from '@/lib/logger'
 import S3Service from '../services/s3Service'
+import { supabaseUser } from './hooks/supabaseUser'
 
 export default async function list(): Promise<string[]> {
   const s3Service = new S3Service()
 
-  const userId = 'dummy-user-id'
+  const user = await supabaseUser()
 
-  return s3Service.get(userId)
+  if (!user) {
+    logger.error('Unable to add, cannot find user', 'add API')
+    return []
+  }
+
+  return s3Service.get(user.id)
 }
