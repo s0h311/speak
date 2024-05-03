@@ -2,7 +2,7 @@
 
 import logger from '@/lib/logger'
 import S3Service from '../services/s3Service'
-import { supabaseUser } from './hooks/supabaseUser'
+import { supabaseUser } from './supabase/supabaseUser'
 
 export default async function list(): Promise<string[]> {
   const s3Service = new S3Service()

@@ -34,3 +34,8 @@ h2 {
   filter: blur(0);
   transform: translateX(0);
 }
+
+thead tr,
+tbody tr {
+  @apply [&>*]:py-1.5 [&>*]:px-5 [&>*]:text-start;
+}

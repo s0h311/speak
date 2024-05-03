@@ -2,7 +2,7 @@
 
 import logger from '@/lib/logger'
 import PollyService from '../services/pollyService'
-import { supabaseUser } from './hooks/supabaseUser'
+import { supabaseUser } from './supabase/supabaseUser'
 
 export default async function add(text: string): Promise<string> {
   const pollyService = new PollyService()
