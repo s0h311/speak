@@ -1,17 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import add from './api/add'
 import { useSupabaseUser } from '@/hooks/useSupabaseUser'
-import { redirect } from 'next/navigation'
 
 export default function Home() {
   const user = useSupabaseUser()
-  useEffect(() => {
-    if (!user) {
-      redirect(`/login`)
-    }
-  }, [user])
+
   const [text, setText] = useState<string>('')
   const [outputUri, setOutputUri] = useState<string>('')
 
@@ -19,6 +14,10 @@ export default function Home() {
     const result = await add(text)
 
     setOutputUri(result)
+  }
+
+  if (!user) {
+    return 'No access'
   }
 
   return (

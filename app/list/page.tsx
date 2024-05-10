@@ -4,25 +4,22 @@ import Link from 'next/link'
 import list from '../api/list'
 import RemoveButton from '@/components/RemoveButton'
 import { useSupabaseUser } from '@/hooks/useSupabaseUser'
-import { redirect } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function List() {
   const user = useSupabaseUser()
-  useEffect(() => {
-    if (!user) {
-      redirect(`/login`)
-    }
-  }, [user])
+
   const [audioUrls, setAudioUrls] = useState<string[]>([])
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       setAudioUrls(await list())
     })()
   })
+
   if (!user) {
     return ''
   }
+
   if (audioUrls.length === 0) {
     return <p>No Audios found</p>
   }
