@@ -10,7 +10,7 @@ export default async function list(): Promise<string[]> {
   const user = await supabaseUser()
 
   if (!user) {
-    logger.error('Unable to add, cannot find user', 'add API')
+    logger.error('Unable to show list, cannot find user', 'list API')
     return []
   }
 
