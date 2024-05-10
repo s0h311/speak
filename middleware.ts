@@ -1,7 +1,10 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 
-export async function middleware(request) {
+export async function middleware(
+  // eslint-disable-next-line
+  request: any
+) {
   // update user's auth session
   return await updateSession(request)
 }
@@ -19,7 +22,10 @@ export const config = {
   ],
 }
 
-async function updateSession(request) {
+async function updateSession(
+  // eslint-disable-next-line
+  request: any
+) {
   let response = NextResponse.next({
     request: {
       headers: request.headers,
