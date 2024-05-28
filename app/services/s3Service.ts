@@ -9,10 +9,10 @@ export default class S3Service {
     this.s3 = new S3Client({ region: 'eu-central-1' })
   }
 
-  public async get(userId: string): Promise<string[]> {
+  public async get(prefix: string): Promise<{ updatedAt: Date | undefined; url: string }[]> {
     const command = new ListObjectsV2Command({
       Bucket: S3_BUCKET_NAME,
-      Prefix: userId,
+      Prefix: prefix,
     })
 
     const { Contents } = await this.s3.send(command)
@@ -22,7 +22,10 @@ export default class S3Service {
       return []
     }
 
-    const res = Contents.map((content) => `https://s3.eu-central-1.amazonaws.com/${S3_BUCKET_NAME}/${content.Key}`)
+    const res = Contents.map(({ Key, LastModified }) => ({
+      updatedAt: LastModified,
+      url: `https://s3.eu-central-1.amazonaws.com/${S3_BUCKET_NAME}/${Key}`,
+    }))
 
     return res
   }

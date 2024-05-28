@@ -13,15 +13,17 @@ export default async function List() {
     <table className='table w-fit'>
       <thead>
         <tr>
-          <th>URL</th>
+          <th>Nr</th>
+          <th>Date</th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        {audioUrls.map((url) => (
+        {audioUrls.map(({ url, updatedAt }, index) => (
           <tr key={url}>
-            <td>{url}</td>
+            <td>{index + 1}</td>
+            <td>{updatedAt ? updatedAt.toLocaleDateString() : ''}</td>
 
             <td className='flex items-center gap-5'>
               <Link
