@@ -5,6 +5,8 @@ import S3Service from '../services/s3Service'
 import { supabaseUser } from './supabase/supabaseUser'
 
 export default async function remove(fileUrl: string): Promise<void> {
+  logger.info('DELETE ENDPOINT CALLED')
+
   const s3Service = new S3Service()
 
   const fileName = fileUrl.split('/').pop()

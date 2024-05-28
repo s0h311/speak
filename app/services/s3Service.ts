@@ -22,7 +22,7 @@ export default class S3Service {
       return []
     }
 
-    const res = Contents.map((content) => `https://s3.eu-central-1.amazonaws.com/speak-audio-files/${content.Key}`)
+    const res = Contents.map((content) => `https://s3.eu-central-1.amazonaws.com/${S3_BUCKET_NAME}/${content.Key}`)
 
     return res
   }

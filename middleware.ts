@@ -1,31 +1,16 @@
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function middleware(
-  // eslint-disable-next-line
-  request: any
-) {
+export async function middleware(request: NextRequest) {
   // update user's auth session
   return await updateSession(request)
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }
 
-async function updateSession(
-  // eslint-disable-next-line
-  request: any
-) {
+async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -81,5 +66,41 @@ async function updateSession(
   // refreshing the auth token
   await supabase.auth.getUser()
 
+  const path = request.nextUrl.pathname
+  const url = request.nextUrl.clone()
+
+  if (path.includes(routes.LOGIN) || path.includes(routes.SIGNUP)) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
+    if (session) {
+      url.pathname = routes.HOME
+      return NextResponse.redirect(url)
+    }
+
+    return response
+  }
+
+  if (path.includes(routes.LIST) || path.includes(routes.HOME)) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
+    if (session) {
+      return response
+    }
+
+    url.pathname = routes.LOGIN
+    return NextResponse.redirect(url)
+  }
+
   return response
+}
+
+const routes = {
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+  LIST: '/list',
+  HOME: '/',
 }

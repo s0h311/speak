@@ -5,6 +5,8 @@ import PollyService from '../services/pollyService'
 import { supabaseUser } from './supabase/supabaseUser'
 
 export default async function add(text: string): Promise<string> {
+  logger.info('ADD ENDPOINT CALLED')
+
   const pollyService = new PollyService()
   const user = await supabaseUser()
 

@@ -5,6 +5,8 @@ import S3Service from '../services/s3Service'
 import { supabaseUser } from './supabase/supabaseUser'
 
 export default async function list(): Promise<string[]> {
+  logger.info('LIST ENDPOINT CALLED')
+
   const s3Service = new S3Service()
 
   const user = await supabaseUser()

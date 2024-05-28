@@ -27,15 +27,15 @@ export default function Navbar({ className }: NavbarProps) {
 
   return (
     <nav className={cn('bg-base-300 w-fit py-4 px-5 rounded-lg space-x-10', className)}>
-
-      {user && links.map(({ title, path }) => (
-        <Link
-          key={path}
-          href={path}
-        >
-          {title}
-        </Link>
-      ))}
+      {user &&
+        links.map(({ title, path }) => (
+          <Link
+            key={path}
+            href={path}
+          >
+            {title}
+          </Link>
+        ))}
 
       {user ? (
         <button onClick={logout}>Logout</button>

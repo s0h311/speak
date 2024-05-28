@@ -5,6 +5,7 @@ import {
   type StartSpeechSynthesisTaskCommandOutput,
   PollyClient,
 } from '@aws-sdk/client-polly'
+import { S3_BUCKET_NAME } from '../api/consts'
 
 export default class PollyService {
   private polly: PollyClient
@@ -16,7 +17,7 @@ export default class PollyService {
   public async post(userId: string, text: string): Promise<string> {
     const params: StartSpeechSynthesisTaskCommandInput = {
       OutputFormat: 'mp3',
-      OutputS3BucketName: 'speak-audio-files',
+      OutputS3BucketName: S3_BUCKET_NAME,
       OutputS3KeyPrefix: userId,
       Text: text,
       TextType: 'text',

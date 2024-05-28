@@ -1,24 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import list from '../api/list'
 import RemoveButton from '@/components/RemoveButton'
-import { useSupabaseUser } from '@/hooks/useSupabaseUser'
-import { useEffect, useState } from 'react'
 
-export default function List() {
-  const user = useSupabaseUser()
-
-  const [audioUrls, setAudioUrls] = useState<string[]>([])
-  useEffect(() => {
-    ;(async () => {
-      setAudioUrls(await list())
-    })()
-  })
-
-  if (!user) {
-    return ''
-  }
+export default async function List() {
+  const audioUrls = await list()
 
   if (audioUrls.length === 0) {
     return <p>No Audios found</p>
