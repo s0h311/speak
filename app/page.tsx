@@ -5,8 +5,6 @@ import add from './api/add'
 import { useSupabaseUser } from '@/hooks/useSupabaseUser'
 
 export default function Home() {
-  const user = useSupabaseUser()
-
   const [text, setText] = useState<string>('')
   const [outputUri, setOutputUri] = useState<string>('')
 
@@ -14,10 +12,6 @@ export default function Home() {
     const result = await add(text)
 
     setOutputUri(result)
-  }
-
-  if (!user) {
-    return 'No access'
   }
 
   return (
@@ -37,17 +31,12 @@ export default function Home() {
         Get Audio
       </button>
 
-      {
-        // TODO CORS konfigurieren EC2
-      }
-      {outputUri && false && (
+      {outputUri && (
         <audio
           controls
           src={outputUri}
         ></audio>
       )}
-
-      <p>{outputUri}</p>
     </section>
   )
 }

@@ -1,13 +1,15 @@
 'use server'
 
 import logger from '@/lib/logger'
-import PollyService from '../services/pollyService'
 import { supabaseUser } from './supabase/supabaseUser'
+import TtsService from '../services/ttsService'
 
 export default async function add(text: string): Promise<string> {
   logger.info('ADD ENDPOINT CALLED')
 
-  const pollyService = new PollyService()
+  const ttsClient = new TtsService()
+
+  // const pollyService = new PollyService()
   const user = await supabaseUser()
 
   if (!user) {
@@ -15,5 +17,6 @@ export default async function add(text: string): Promise<string> {
     return 'Error'
   }
 
-  return pollyService.post(user.id, text)
+  return ttsClient.post(user.id, text)
+  //return pollyService.post(user.id, text)
 }
