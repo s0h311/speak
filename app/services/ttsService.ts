@@ -17,19 +17,23 @@ export default class TtsService {
   ) {}
 
   public async post(userId: string, text: string): Promise<string> {
-    const request: any = {
+    const request = {
       input: { text },
       voice: { languageCode: 'de-DE', ssmlGender: 'NEUTRAL' },
       audioConfig: { audioEncoding: 'MP3' },
     }
 
+    // eslint-disable-next-line
+    // @ts-ignore
     const response = await this.ttsClient.synthesizeSpeech(request)
 
     const tmpPath = __dirname + '/tmp/'
     const fileName = new Date().getTime() + '.mp3'
     const filePath = tmpPath + fileName
 
-    await fs.writeFile(filePath, response[0]['audioContent'] as any)
+    // eslint-disable-next-line
+    // @ts-ignore
+    await fs.writeFile(filePath, response[0]['audioContent'])
 
     const pathInStorage = `${userId}/${fileName}`
 

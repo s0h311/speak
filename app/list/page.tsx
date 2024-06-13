@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import list from '../api/list'
 import RemoveButton from '@/components/RemoveButton'
 

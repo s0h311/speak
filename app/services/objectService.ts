@@ -1,4 +1,4 @@
-import { Storage, type DeleteFilesOptions, type GetFilesOptions } from '@google-cloud/storage'
+import { Storage, type GetFilesOptions } from '@google-cloud/storage'
 import { GCS_BUCKET_NAME } from '../api/consts'
 
 export default class ObjectService {

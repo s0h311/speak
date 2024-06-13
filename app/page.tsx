@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import add from './api/add'
-import { useSupabaseUser } from '@/hooks/useSupabaseUser'
 
 export default function Home() {
   const [text, setText] = useState<string>('')
