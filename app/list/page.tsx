@@ -15,6 +15,7 @@ export default async function List() {
         <tr>
           <th>Nr</th>
           <th>Date</th>
+          <th>Play</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -25,15 +26,15 @@ export default async function List() {
             <td>{index + 1}</td>
             <td>{updatedAt ? updatedAt.toLocaleDateString() : ''}</td>
 
-            <td className='flex items-center gap-5'>
-              <Link
-                className='btn btn-accent btn-sm'
-                href={url}
-                target='_blank'
-              >
-                open
-              </Link>
+            <td>
+              <audio
+                className='rounded-lg'
+                controls
+                src={url}
+              ></audio>
+            </td>
 
+            <td className='flex items-center gap-5'>
               <RemoveButton url={url} />
             </td>
           </tr>

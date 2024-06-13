@@ -1,13 +1,13 @@
 'use server'
 
 import logger from '@/lib/logger'
-import S3Service from '../services/s3Service'
 import { supabaseUser } from './supabase/supabaseUser'
+import ObjectService from '../services/objectService'
 
 export default async function list(): Promise<{ updatedAt: Date | undefined; url: string }[]> {
   logger.info('LIST ENDPOINT CALLED')
 
-  const s3Service = new S3Service()
+  const objectService = new ObjectService()
 
   const user = await supabaseUser()
 
@@ -16,5 +16,5 @@ export default async function list(): Promise<{ updatedAt: Date | undefined; url
     return []
   }
 
-  return s3Service.get(user.id)
+  return objectService.get(user.id)
 }

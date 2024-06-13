@@ -1,16 +1,15 @@
 'use server'
 
 import logger from '@/lib/logger'
-import S3Service from '../services/s3Service'
 import { supabaseUser } from './supabase/supabaseUser'
+import ObjectService from '../services/objectService'
 
 export default async function remove(fileUrl: string): Promise<void> {
   logger.info('DELETE ENDPOINT CALLED')
 
-  const s3Service = new S3Service()
+  const objectService = new ObjectService()
 
-  const fileName = fileUrl.split('/').pop()
-  const fileOwner = fileName?.split('.')[0]
+  let fileName = fileUrl.split('/').pop()
 
   const user = await supabaseUser()
 
@@ -24,10 +23,12 @@ export default async function remove(fileUrl: string): Promise<void> {
     return
   }
 
-  if (fileOwner !== user.id) {
+  if (!fileName.includes(user.id)) {
     return
   }
 
-  await s3Service.remove(fileName)
+  fileName = fileName.replace('%2F', '/')
+
+  await objectService.remove(fileName)
   return
 }
